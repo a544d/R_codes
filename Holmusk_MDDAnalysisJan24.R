@@ -234,7 +234,7 @@ write.csv(data,'MDDDemographicDataJan24.csv', na = "")
 ############Analysis###########
 ###############################
 #CGIS change overall 
-#model did not include costs - but didn't add anything and is hard to interpret without information of where the data is from/in relation to
+#model did not include costs - didn't add anything and is hard to interpret without information of where the data is from/in relation to what treatment
 change_mod<-lm(cgis_dif ~ age_at_admission + gender_recoded + race_recoded + duration_of_care + medical_history_dia + medical_history_sud + medical_history_hbp2 + medical_history_ren +
                 medical_history_tum + medical_history_anx + medical_history_mood + poly, data=df)
 summary(change_mod)
