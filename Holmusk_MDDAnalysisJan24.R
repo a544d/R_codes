@@ -30,7 +30,6 @@ print(democolumn_types)
 #format dob 
 demo$date_of_birth<-as.Date(demo$date_of_birth,"%d/%m/%Y")
 
-
 #summary of gender 
 demo$gender<-factor(demo$gender)
 summary(demo$gender) #f = 101, female = 1396, m = 170, male = 1333
