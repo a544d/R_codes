@@ -237,6 +237,7 @@ write.csv(data,'MDDDemographicDataJan24.csv', na = "")
 change_mod<-lm(cgis_dif ~ age_at_admission + gender_recoded + race_recoded + duration_of_care + medical_history_dia + medical_history_sud + medical_history_hbp2 + medical_history_ren +
                 medical_history_tum + medical_history_anx + medical_history_mood + poly, data=df)
 summary(change_mod)
+confint(change_mod)
 
 #checking CGIS change model
 hist(change_mod$residuals) #residuals look ok 
@@ -278,6 +279,7 @@ df_dia<-filter(df,medical_history_dia=="1")
 change_mod_dia<-lm(cgis_dif ~ age_at_admission + gender_recoded + race_recoded + duration_of_care + current_obe + medical_history_sud + medical_history_ren +
                  medical_history_tum + medical_history_anx + medical_history_mood + poly, data=df_dia)
 summary(change_mod_dia)
+confint(change_mod_dia)
 
 #checking Diabetes CGIS change model
 hist(change_mod_dia$residuals)#look ok 
