@@ -227,12 +227,16 @@ tab2 <- CreateTableOne(vars = myVars, data = df, factorVars = catVars)
 
 data<-print(tab2, showAllLevels = TRUE, formatOptions = list(big.mark = ","))
 
+describe(df$poly)
+df[,.(quantile(poly,c(0.25,0.75)))]
+
 write.csv(data,'MDDDemographicDataJan24.csv', na = "")
 
 ###############################
 ############Analysis###########
 ###############################
 #CGIS change overall 
+#regression model
 #model did not include costs - didn't add anything and is hard to interpret without information of where the data is from/in relation to what treatment
 change_mod<-lm(cgis_dif ~ age_at_admission + gender_recoded + race_recoded + duration_of_care + medical_history_dia + medical_history_sud + medical_history_hbp2 + medical_history_ren +
                 medical_history_tum + medical_history_anx + medical_history_mood + poly, data=df)
@@ -259,6 +263,9 @@ plot(change_mod, which=4, cook.levels=cutoff) #a few outliers
 ########################
 #CGIS change in MDD patients with a history of diabetes
 #demographics
+df_dia<-filter(df,medical_history_dia=="1")
+#included current obesity due to relationship with diabetes 
+
 myVars <- c("age_at_admission","gender_recoded","race_recoded","duration_of_care","medical_history_dia","medical_history_sud","medical_history_hbp2",
             "medical_history_ren","medical_history_tum","medical_history_anx","medical_history_mood","poly","cgis_adm","cgis_dis","cgis_dif","total_amount", 
             "trt_anx", "trt_con","trt_adt","trt_ssr","trt_the", "trt_oth", "current_obe")
@@ -273,9 +280,10 @@ data_2<-print(tab2, showAllLevels = TRUE, formatOptions = list(big.mark = ","))
 
 write.csv(data_2,'MDD_diaDemographicDataJan24.csv', na = "")
 
-df_dia<-filter(df,medical_history_dia=="1")
+describe(df_dia$poly)
+df_dia[,.(quantile(poly,c(0.25,0.75)))]
 
-#included current obesity due to relationship with diabetes 
+#regression model
 change_mod_dia<-lm(cgis_dif ~ age_at_admission + gender_recoded + race_recoded + duration_of_care + current_obe + medical_history_sud + medical_history_ren +
                  medical_history_tum + medical_history_anx + medical_history_mood + poly, data=df_dia)
 summary(change_mod_dia)
