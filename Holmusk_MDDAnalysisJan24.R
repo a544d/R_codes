@@ -199,7 +199,7 @@ hist(df$cgis_adm)
 describe(df$cgis_dis) #mean at discharge = 3.93 (1.04) 
 hist(df$cgis_dis)
 
-#create a variable which is the difference admission scores and discharge scores (a negative variable = improvement during episode of care)
+#create a variable which is the difference admission scores and discharge scores (a negative number = improvement during episode of care)
 df$cgis_dif<-df$cgis_dis-df$cgis_adm
 
 #checking this worked 
@@ -284,7 +284,7 @@ describe(df_dia$poly)
 df_dia[,.(quantile(poly,c(0.25,0.75)))]
 
 #regression model
-change_mod_dia<-lm(cgis_dif ~ age_at_admission + gender_recoded + race_recoded + duration_of_care + current_obe + medical_history_sud + medical_history_ren +
+change_mod_dia<-lm(cgis_dif ~ age_at_admission + gender_recoded + race_recoded + duration_of_care + current_obe + medical_history_sud + medical_history_hbp2 + medical_history_ren +
                  medical_history_tum + medical_history_anx + medical_history_mood + poly, data=df_dia)
 summary(change_mod_dia)
 confint(change_mod_dia)
